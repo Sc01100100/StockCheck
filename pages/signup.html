@@ -27,45 +27,47 @@
    </div>
    </div>
 
-   <!-- Right Section -->
-    
-   <div class="md:w-1/2 flex flex-col justify-center items-center p-8 md:p-16">
-    <div class="w-full max-w-md">
-     <h2 class="text-3xl font-bold mb-8">
-      Sign up
-     </h2>
-     <form>
-      <div class="mb-4">
-       <label class="block text-sm mb-2" for="name">
-        Name
-       </label>
-       <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded" id="email" placeholder="Enter your name" type="name"/>
+    <!-- Right Section -->
+
+    <div class="md:w-1/2 flex flex-col justify-center items-center p-8 md:p-16">
+      <div class="w-full max-w-md">
+       <h2 class="text-3xl font-bold mb-8">
+        Sign up
+       </h2>
+       <div id="alert-container" class="fixed top-4 right-4 space-y-4 z-50"></div>
+       <form>
+        <div class="mb-4">
+         <label class="block text-sm mb-2" for="name">
+          Name
+         </label>
+         <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded" id="name" placeholder="Enter your name" type="name"/>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm mb-2" for="email">
+           Email
+          </label>
+          <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded" id="email" placeholder="Enter your email" type="email"/>
+         </div>
+        <div class="mb-4 relative">
+         <label class="block text-sm mb-2" for="password">
+          Password
+         </label>
+         <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded" id="password" placeholder="Enter your password" type="password"/>
+         <i class="fas fa-eye absolute right-3 top-10 text-gray-500">
+         </i>
+        </div>
+        <div class="mb-4 text-right">
+         <a class="text-blue-500 hidden" href="#">
+          Forgot your password?
+         </a>
+        </div>
+        <button class="w-full bg-blue-600 text-white py-2 rounded mt-4" type="submit">
+         Create a free account
+        </button>
+       </form>
       </div>
-      <div class="mb-4">
-        <label class="block text-sm mb-2" for="email">
-         Email
-        </label>
-        <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded" id="email" placeholder="Enter your email" type="email"/>
-       </div>
-      <div class="mb-4 relative">
-       <label class="block text-sm mb-2" for="password">
-        Password
-       </label>
-       <input class="w-full p-2 bg-gray-800 border border-gray-700 rounded" id="password" placeholder="Enter your password" type="password"/>
-       <i class="fas fa-eye absolute right-3 top-10 text-gray-500">
-       </i>
-      </div>
-      <div class="mb-4 text-right">
-       <a class="text-blue-500 hidden" href="#">
-        Forgot your password?
-       </a>
-      </div>
-      <button class="w-full bg-blue-600 text-white py-2 rounded mt-4" type="submit">
-       Create a free account
-      </button>
-     </form>
+     </div>
     </div>
-   </div>
-  </div>
- </body>
-</html>
+    <script type="module" src="../assets/js/controller/signup.js"></script> 
+   </body>
+  </html>
