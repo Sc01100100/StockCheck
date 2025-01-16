@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Check | Home</title>
+    <link
+      rel="shortcut icon"
+      href="https://nekowawolf.github.io/delete-later/assets/img/Save%20Cash%20logo.png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/2ff8362c80.js" crossorigin="anonymous"></script>
+    <script type="module" src="../assets/js/fetch-items.js" defer></script>
+    <script type="module" src="../assets/js/fetch-transaction.js" defer></script>
+    <style>
+      input[type="month"] {
+          color: white;
+      }
+      input[type="month"]::-webkit-datetime-edit-text,
+      input[type="month"]::-webkit-datetime-edit-month-field,
+      input[type="month"]::-webkit-datetime-edit-day-field,
+      input[type="month"]::-webkit-datetime-edit-year-field {
+          color: white;
+      }
+      input[type="month"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+      }
+  </style>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <div
+  id="sidebar"
+  class="-translate-x-full lg:translate-x-0 fixed h-screen w-64 bg-gray-800 p-4 transform transition-transform duration-300 ease-in-out z-50"
+>
+  <div class="flex items-center justify-center mb-8 mt-9">
+    <img
+      alt="Logo"
+      class="w-10 h-10 mr-2 rounded-lg"
+      src="https://avatars.githubusercontent.com/u/190675416?s=96&v=4"
+    />
+    <span class="text-xl font-semibold">Stock Check</span>
+  </div>
+  <nav>
+    <ul class="flex flex-col items-center space-y-4 mt-16">
+      <li>
+        <a
+          class="flex items-center text-gray-200 mr-9 hover:text-white"
+          href="#"
+        >
+          <i class="fas fa-th-large mr-2"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a
+          class="flex items-center text-gray-400 hover:text-white mr-10"
+          href="transaction.html"
+        >
+          <i class="fas fa-wallet mr-2"></i>
+          <span>Add Items</span>
+        </a>
+      </li>
+      <li>
+        <a id="logoutButton" class="flex items-center text-gray-400 hover:text-white mt-96" style="cursor: pointer;">
+          <i class="fas fa-right-from-bracket mr-2"></i>
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+      <!-- Main Content -->
+  <main
+  id="main-content"
+  class="flex-1 p-6 bg-gray-900 text-white ml-0 lg:ml-64"
+>
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold">
+      Hai <span id="userName" class=" text-white"></span>
+    </h1>
+    <p class="text-gray-400">Manage your items efficiently.</p>
+  </header>
+
+   <!-- Burger Menu -->
+<button
+id="burgerMenu"
+class="absolute top-4 right-4 lg:hidden text-gray-200 mb-24 focus:outline-none"
+>
+<i class="fas fa-bars text-2xl"></i>
+</button>
+
+<div id="alert-logout" class="fixed top-4 right-4 space-y-4 z-50"></div>
+   
+  <section class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold mb-2">Total Items</h2>
+        <p class="text-2xl font-bold text-green-500">
+          <span id="total-items">0</span>
+        </p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold mb-2">
+          Items In <span class="text-sm text-gray-400"></span>
+        </h2>
+        <p id="items-in" class="text-2xl font-bold text-blue-500">0</p>
+      </div>
+      
+      <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold mb-2">
+          Items Out <span class="text-sm text-gray-400"></span>
+        </h2>
+        <p id="items-out" class="text-2xl font-bold text-red-500">0</p>
+      </div>
+      
+    </div>
+
+    <div class="flex items-center">
+        <input 
+            type="month" 
+            id="" 
+            class="block w-48 bg-gray-800 px-3 py-2 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        <button 
+            id="filterButton" 
+            class="ml-4 bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-lg">
+            Filter
+        </button>
+    </div>
+
+    <!-- Card Items -->
+    <div id="fillitems">
+
+      <div id="popup-restock" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="bg-gray-800 rounded-lg p-6 w-96">
+            <h2 class="text-xl font-semibold mb-4">Restock</h2>
+            <div class="mb-4">
+                <input 
+                id="restock-quantity" 
+                type="number" 
+                min="1" 
+                class="mt-2 block w-full p-3 border border-gray-600 bg-gray-800 text-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out sm:text-sm placeholder-gray-500"
+                placeholder="Enter quantity"
+            />
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button 
+                    onclick="closeRestockPopup()" 
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
+                >
+                    Cancel
+                </button>
+                <button 
+                    onclick="submitRestock()" 
+                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+                >
+                    OK
+                </button>
+            </div>
+        </div>
+      </div>
+
+        <div id="popup-sell" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div class="bg-gray-800 rounded-lg p-6 w-96">
+              <h2 class="text-xl font-semibold mb-4">Sell</h2>
+              <div class="mb-4">
+                  <input 
+                  id="sell-quantity" 
+                  type="number" 
+                  min="1" 
+                  class="mt-2 block w-full p-3 border border-gray-600 bg-gray-800 text-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out sm:text-sm placeholder-gray-500"
+                  placeholder="Enter quantity"
+              />
+              </div>
+              <div class="flex justify-end space-x-4">
+                  <button 
+                      onclick="closeSellPopup()" 
+                      class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
+                  >
+                      Cancel
+                  </button>
+                  <button 
+                      onclick="submitSell()" 
+                      class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+                  >
+                      OK
+                  </button>
+              </div>
+          </div>
+        </div>
+
+    </div>
+  
+    
+    
+  
+
+    <!-- Recent Transactions Section -->
+    <div>
+      <h2 class="text-xl font-bold mb-4">Recent Transactions</h2>
+      <ul class="space-y-4" id="fillTransaction" >
+       
+      </ul>
+    </div>
+    <div>
+    
+
+    
+    <h1 class="text-gray-900 mt-32">.</h1>
+  </section>
+</main>
+</div>
+
+
+
+    <!-- External Scripts -->
+    <script src="../assets/js/burger-menu.js"></script>
+    <script type="module" src="../assets/js/controller/restock-item.js"></script>
+    <script type="module" src="../assets/js/controller/sell-items.js"></script>
+    <script type="module" src="../assets/js/fetch-user.js"></script>
+    <script type="module" src="../assets/js/post-logout.js"></script>
+  </body>
+</html>
