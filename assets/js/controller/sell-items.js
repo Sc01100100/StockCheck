@@ -15,14 +15,14 @@ async function submitSell() {
     const quantity = document.getElementById("sell-quantity").value;
 
     if (!quantity || quantity <= 0) {
-        alert("Please enter a valid quantity.");
+        showAlert("Please enter a valid quantity.", "bg-red-500");
         return;
     }
 
     try {
         const token = localStorage.getItem("Authorization");
         if (!token) {
-            alert("You are not logged in. Please log in again.");
+            showAlert("You are not logged in. Please log in again.", "bg-red-500");
             window.location.href = "../pages/signin.html";
             return;
         }
@@ -41,15 +41,33 @@ async function submitSell() {
         });
 
         if (response.ok) {
-            alert("Item sold successfully!");
+            showAlert("Item sold successfully!", "bg-green-500");
             closeSellPopup();
             location.reload(); 
         } else {
-            throw new Error(`Failed to sell item: ${response.statusText}`);
+            const errorData = await response.json();
+            if (errorData.error) {
+                showAlert(errorData.error, "bg-red-500"); 
+            } else {
+                showAlert(`Failed to sell item: ${response.statusText}`, "bg-red-500");
+            }
         }
     } catch (error) {
         console.error("Error selling item:", error);
+        showAlert("An unexpected error occurred. Please try again.", "bg-red-500");
     }
+}
+
+function showAlert(message, alertClass) {
+    const alertBox = document.createElement("div");
+    alertBox.className = `fixed top-4 left-1/2 transform -translate-x-1/2 max-w-md w-full p-4 rounded-lg text-white ${alertClass} shadow-lg text-center z-50`;
+    alertBox.textContent = message;
+
+    document.body.appendChild(alertBox);
+
+    setTimeout(() => {
+        alertBox.remove();
+    }, 3000); 
 }
 
 window.showSellPopup = showSellPopup;
