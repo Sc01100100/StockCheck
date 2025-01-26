@@ -10,9 +10,23 @@ const blockInvalidKeys = (inputId) => {
 
 blockInvalidKeys("item-stock");
 
-const incomeAmountInput = document.getElementById("amount");
+const incomeAmountInput = document.getElementById("am");
 
 incomeAmountInput.addEventListener("keydown", (event) => {
+  if (
+    event.key === "-" ||
+    event.key === "+" ||
+    event.key === "e" ||
+    event.key === "E" ||
+    event.key === "."
+  ) {
+    event.preventDefault();
+  }
+});
+
+const amountInput = document.getElementById("tx");
+
+amountInput.addEventListener("keydown", (event) => {
   if (
     event.key === "-" ||
     event.key === "+" ||
