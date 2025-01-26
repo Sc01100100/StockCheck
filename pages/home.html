@@ -143,6 +143,7 @@ class="absolute top-4 right-4 lg:hidden text-gray-200 mb-24 focus:outline-none"
                 min="1" 
                 class="mt-2 block w-full p-3 border border-gray-600 bg-gray-800 text-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out sm:text-sm placeholder-gray-500"
                 placeholder="Enter quantity"
+                oninput="restockInput(this)"
             />
             </div>
             <div class="flex justify-end space-x-4">
@@ -172,6 +173,7 @@ class="absolute top-4 right-4 lg:hidden text-gray-200 mb-24 focus:outline-none"
                   min="1" 
                   class="mt-2 block w-full p-3 border border-gray-600 bg-gray-800 text-gray-300 rounded-lg shadow-sm focus:ring-green-500 focus:border-green-500 transition duration-200 ease-in-out sm:text-sm placeholder-gray-500"
                   placeholder="Enter quantity"
+                  oninput="sellInput(this)"
               />
               </div>
               <div class="flex justify-end space-x-4">
@@ -217,6 +219,7 @@ class="absolute top-4 right-4 lg:hidden text-gray-200 mb-24 focus:outline-none"
 
     <!-- External Scripts -->
     <script src="../assets/js/burger-menu.js"></script>
+    <script src="../assets/js/form-validation.js"></script>
     <script type="module" src="../assets/js/controller/restock-item.js"></script>
     <script type="module" src="../assets/js/controller/sell-items.js"></script>
     <script type="module" src="../assets/js/fetch-user.js"></script>
