@@ -38,6 +38,20 @@ amountInput.addEventListener("keydown", (event) => {
   }
 });
 
+const amInput = document.getElementById("am2");
+
+amInput.addEventListener("keydown", (event) => {
+  if (
+    event.key === "-" ||
+    event.key === "+" ||
+    event.key === "e" ||
+    event.key === "E" ||
+    event.key === "."
+  ) {
+    event.preventDefault();
+  }
+});
+
 function restockInput(input) {
   input.value = input.value.replace(/[^0-9]/g, "");
 }
