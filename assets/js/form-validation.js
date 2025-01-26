@@ -52,6 +52,34 @@ amInput.addEventListener("keydown", (event) => {
   }
 });
 
+const am3Input = document.getElementById("am23");
+
+am3Input.addEventListener("keydown", (event) => {
+  if (
+    event.key === "-" ||
+    event.key === "+" ||
+    event.key === "e" ||
+    event.key === "E" ||
+    event.key === "."
+  ) {
+    event.preventDefault();
+  }
+});
+
+const am2Input = document.getElementById("am22");
+
+am2Input.addEventListener("keydown", (event) => {
+  if (
+    event.key === "-" ||
+    event.key === "+" ||
+    event.key === "e" ||
+    event.key === "E" ||
+    event.key === "."
+  ) {
+    event.preventDefault();
+  }
+});
+
 function restockInput(input) {
   input.value = input.value.replace(/[^0-9]/g, "");
 }
